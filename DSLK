@@ -1,0 +1,77 @@
+#include<iostream>
+using namespace std;
+struct book{
+	string ma, ten, tac_gia, nxb;
+	friend istream& operator >> (istream& in,book& a){
+		cout << "Nhap ma sach: ";
+		getline(cin , a.ma);
+		cout << "Nhap ten sach: ";
+		getline(cin, a.ten);
+		cout << "Nhap ten tac gia: ";
+		getline(cin, a.tac_gia);
+		cout << "Nam xuat ban: ";
+		getline(cin, a.nxb);
+		return in;
+	}
+	
+	friend ostream& operator << (ostream& out,book a){
+		cout << a.ma << " " << a.ten << " " << a.tac_gia << " " << a.nxb;
+		cout <<endl;
+		return out;
+	}
+};
+
+struct Node{
+	book data;
+	Node* next;
+	
+	Node(book x){
+		this->data = x;
+		this->next = nullptr;
+	}
+	
+};
+
+struct List{
+	Node* head;
+	Node* tail;
+	
+	List(){
+		this->head = nullptr;
+		this->tail = nullptr;
+	}
+	
+	void add(book a){
+		Node* tmp = new Node(a);
+		if(head == nullptr){
+			head = tmp;
+			tail = tmp;
+		}
+		else{
+			tail->next = tmp; // dua Node can them vao;
+			tail = tmp;
+		}
+	}
+	
+	void show(){
+		Node* p = head;
+		while(p != nullptr){
+			cout << p->data;
+			p=p->next;
+		}
+	}
+};
+
+int main(){
+	List ls;
+	int n;
+	cout << "Nhap so luong sach can them vao: ";
+	cin >> n;
+	cin.ignore();
+	for(int i = 0; i < n ; i++){
+		book a;
+		cin >> a;
+		ls.add(a);
+	}
+	ls.show();
+}
